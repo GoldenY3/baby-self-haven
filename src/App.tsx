@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import PropertyDetail from "./pages/PropertyDetail";
 import Properties from "./pages/Properties";
 import About from "./pages/About";
+import ExploreMap from "./pages/ExploreMap";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/properties" element={<Properties />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
           <Route path="/about" element={<About />} />
+          <Route path="/explore-map" element={<ExploreMap />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
