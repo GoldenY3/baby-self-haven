@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -17,6 +18,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  autoPlay?: boolean
 }
 
 type CarouselContextProps = {
@@ -52,6 +54,7 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      autoPlay = false,
       ...props
     },
     ref
@@ -96,6 +99,19 @@ const Carousel = React.forwardRef<
       [scrollPrev, scrollNext]
     )
 
+    // Ajout de l'autoplay
+    React.useEffect(() => {
+      if (!api || !autoPlay) {
+        return
+      }
+      
+      const interval = setInterval(() => {
+        api.scrollNext();
+      }, 5000); // Change d'image toutes les 5 secondes
+      
+      return () => clearInterval(interval);
+    }, [api, autoPlay]);
+
     React.useEffect(() => {
       if (!api || !setApi) {
         return
@@ -130,6 +146,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          autoPlay,
         }}
       >
         <div

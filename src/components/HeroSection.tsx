@@ -1,21 +1,48 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem 
+} from "@/components/ui/carousel";
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1613553507747-5f8d62ad5904?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1501876725168-00c445821c9e?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1170&auto=format&fit=crop"
+];
 
 const HeroSection: React.FC = () => {
   return (
     <div className="hero-section">
-      {/* Image de fond avec un dégradé */}
+      {/* Slider d'images en arrière-plan */}
       <div className="absolute inset-0 z-0">
-        <div className="relative w-full h-full">
-          <img
-            src="https://images.unsplash.com/photo-1613553507747-5f8d62ad5904?q=80&w=1170&auto=format&fit=crop"
-            alt="Villa avec vue panoramique"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/25"></div>
-        </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full h-full"
+          autoPlay={true}
+        >
+          <CarouselContent className="h-full">
+            {heroImages.map((image, index) => (
+              <CarouselItem key={index} className="h-full">
+                <div className="relative w-full h-full">
+                  <img
+                    src={image}
+                    alt={`Vue du logement ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/25"></div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
 
       {/* Contenu principal */}
